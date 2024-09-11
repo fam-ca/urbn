@@ -18,9 +18,9 @@ def is_contains(str, list_to_search):
     string = str.lower()
     list_new = []
     for i in range(len(list_to_search)):
-            list_new.append(list_to_search[i].lower())
+        list_new.append(list_to_search[i].lower())
     if string in list_new:
-                return True
+        return True
     else:
         return False
     
