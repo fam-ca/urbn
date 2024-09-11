@@ -2,19 +2,19 @@ calls = 0
 
 
 def count_calls():
+    global calls
+    calls += 1
     return calls
 
 
 def string_info(string):
-    global calls
+    count_calls()
     tuple = (len(string), string.upper(), string.lower())
-    calls += 1
     return tuple
 
 
 def is_contains(str, list_to_search):
-    global calls
-    calls += 1
+    count_calls()
     string = str.lower()
     list_new = []
     for i in range(len(list_to_search)):
@@ -24,7 +24,6 @@ def is_contains(str, list_to_search):
     else:
         return False
     
-calls = count_calls()
 
 print(string_info('Capybara'))
 print(string_info('Armageddon'))
