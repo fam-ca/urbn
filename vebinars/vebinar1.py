@@ -18,4 +18,3 @@ final_price = total_price
 if has_discount and is_member:
     final_price = round(total_price - total_price*discount, 2)
 print(f'Price with discount: {final_price} of products {product_name}\n')
-
