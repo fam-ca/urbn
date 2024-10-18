@@ -1,17 +1,11 @@
 class Vehicle: 
     __COLOR_VARIANTS = ['BLACK', 'WHITE', 'BLUE', 'RED']
     
-    def __init__(self, owner,
-                    __model = 'Toyota',
-                    __color = 'black',
-                    __engine_power = 750
+    def __init__(self, owner: str,
+                    __model: str = 'Toyota',
+                    __color: str = 'black',
+                    __engine_power: int = 750
                     ):
-        '''
-        owner: str
-        __model: str
-        __engine_power: int
-        __color: str
-        '''
         self.owner = owner
         self.__model = __model
         self.__engine_power = __engine_power
