@@ -20,35 +20,30 @@ class Shop:
             products += (line.strip().split(',')[0]) + ' '
         file.close()
         return products
-    
-    def add_product(self, product):
-        return f'{self.get_products()}, {product.name}'
 
     def add(self, *products):
-        file = open(self.__file_name, 'w')
-        print(self.get_products())
+        file = open(self.__file_name, 'a')
+        all_products = set(self.get_products())
         for product in products:
-            print(product.name)
+            # print(product.name)
             if isinstance(product, Product):
-                if product.name in self.get_products():
-                    print(f'Продукт {str(product)} уже есть в магазине.')
-                else:
+                if product.name not in self.get_products():
                     file.write(str(product)+'\n')
-                    self.add_product(product)
-
-
+                    all_products.add(product.name)
+                    # print(f'Добавлен продукт {product.name}')
+                else:
+                    print(f'Продукт {str(product)} уже есть в магазине.')
             else:
                 print('Неверный тип данных.')
-                break        
         file.close()
 
-
-
-
-shop = Shop()
-print(shop.get_products())
+s1 = Shop()
 p1 = Product('Potato', 50.5, 'Vegetables')
 p2 = Product('Spaghetti', 3.4, 'Groceries')
 p3 = Product('Potato', 5.5, 'Vegetables')
-# print(p1)
-shop.add(p1, p2, p3)
+
+print(p2) # __str__
+
+s1.add(p1, p2, p3)
+
+print(s1.get_products())
