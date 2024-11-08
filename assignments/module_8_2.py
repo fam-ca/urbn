@@ -3,7 +3,7 @@ def personal_sum(numbers):
     incorrect_data  = 0
     try:
         length = len(numbers)
-    except:
+    except TypeError:
         return None
     
     for number in numbers:
