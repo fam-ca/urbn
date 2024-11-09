@@ -4,7 +4,7 @@ def apply_all_func(int_list, *functions):
         for function in functions:
             results[function.__name__] = function(int_list)
     except TypeError:
-        return f'Некорректный тип данных'
+        return 'Некорректный тип данных'
     return results
 
 
