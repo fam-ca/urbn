@@ -5,6 +5,8 @@ second = 'Рамена мало было'
 first_result = list(map(lambda x, y: x==y, first, second))
 print(first_result)
 
+
+# Функция высшего порядка
 def get_advanced_writer(file_name):
     def write_everything(*data_set):
         with open(file_name, 'w') as file:
@@ -12,13 +14,13 @@ def get_advanced_writer(file_name):
                 file.write(str(data)+'\n')
     return write_everything
 
+write = get_advanced_writer('example.txt')
+write('Это строчка', ['А', 'это', 'уже', 'число', 5, 'в', 'списке'])
+
 
 # Повторение на работу с файлами
 import os
 os.chdir('assignments/module_9_4')
-
-write = get_advanced_writer('example.txt')
-write('Это строчка', ['А', 'это', 'уже', 'число', 5, 'в', 'списке'])
 
 class MysticBall:
     def __init__(self, *words):
