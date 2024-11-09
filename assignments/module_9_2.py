@@ -10,6 +10,6 @@ print(first_result)
 second_result = [(x, y) for x in first_strings for y in second_strings if len(x)==len(y)]
 print(second_result)
 
-third_result = dict([(x, len(x)) for x in first_strings+second_strings if len(x)%2==0])
+third_result = {x: len(x) for x in first_strings+second_strings if len(x)%2==0}
 print(third_result)
 
