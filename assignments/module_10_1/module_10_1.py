@@ -28,7 +28,6 @@ print(f'Работа потоков: {(stop1-start1)} с.')
 file_names = ['example5.txt', 'example6.txt', 'example7.txt', 'example8.txt']
 start2 = time.time()
 
-
 threads = [threading.Thread(target=write_words, args=(word_counts[i], file_names[i])) for i in range(4)]
 
 for t in threads:
