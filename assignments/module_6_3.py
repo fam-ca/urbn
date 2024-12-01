@@ -7,7 +7,7 @@ class Horse:
     def run(self, dx):
         return self.x_distance + dx
 
-class Eagle():
+class Eagle:
     def __init__(self, y_distance: int = 0, 
                  sound: str = 'I train, eat, sleep, and repeat'):
         self.y_distance = y_distance
