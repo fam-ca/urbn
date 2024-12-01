@@ -1,0 +1,2 @@
+# для активации виртуальной среды
+source venv/bin/activate 
