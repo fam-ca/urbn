@@ -2,29 +2,8 @@ from queue import Queue # для синхронизации потоков
 # FIFO - first in first out
 import time
 import threading
-
-# def getter(queue):
-#     while True:
-#         time.sleep(2)
-#         item = queue.get()
-#         print(threading.current_thread(), 'Took eleement', item)
-
-# queue = Queue(maxsize=10)
-# thread1 = threading.Thread(target=getter, args=(queue,), daemon=True)
-# thread1.start()
-
-# for i in range(10):
-#     time.sleep(1)
-#     queue.put(i)
-#     print(threading.current_thread(), 'put the element to the queue', i)
-
-
-# q = Queue()
-# q.put(5)
-# print(q.get(timeout=2))
-# print('End')
-
 import random
+
 class Table:
     def __init__(self, number, guest=None):
         self.number = number
@@ -37,7 +16,10 @@ class Guest(threading.Thread):
         self.name = name
     
     def run(self):
-        time.sleep(random.randint(3, 10))
+        sleep_for = random.randint(3, 10)
+        # print(f'Thread start and finishes in {sleep_for} secs')
+        time.sleep(sleep_for)
+        # print('Thread complete')
 
 
 class Cafe:
@@ -45,65 +27,49 @@ class Cafe:
         self.tables = args
         self.queue = queue
 
-    def is_empty(self):
-        for table in tables:
-            if table.guest != None:
-                flag = False
-            else:
-                flag = True
-        return flag
-
-    def get_empty_table_idx(self):
-        print(self.tables)
+    def free_table(self):
+        fr_table = None
         for table in self.tables:
-            if table.guest == None:
-                return table.number
-            else:
-                continue
+            if table.guest is None:
+                fr_table = table
+                break
+        return fr_table
 
-        
     def guest_arrival(self, *guests: Guest):
-        i = 0
-        while i<=len(guests): # while list of guests is not empty
-            if self.is_empty():
-                empty_table_idx = self.get_empty_table_idx()
-                # print(empty_table_idx)
-                self.tables[empty_table_idx].guest = guests[i]
-                # print(self.tables[empty_table_idx].guest)
-
-                print(self.tables[empty_table_idx].guest==None)
-                print(f'{guests[i].name} сел(-а) за стол номер {empty_table_idx}.')
+        for i in range(len(guests)):
+            fr_table = self.free_table()
+            if fr_table:
+                fr_table.guest = guests[i]
+                guests[i].start()
+                print(f'{guests[i].name} сел(-а) за стол номер {fr_table.number}.')
             else: 
                 self.queue.put(guests[i])
                 print(f'{guests[i].name} в очереди.')
-            i += 1
-        return self.tables
     
 
     def discuss_guests(self):
-        i = 0
-        while not self.queue.empty():
-            if self.tables[i].guest is not None and threading.current_thread().is_alive():
-                print(f'{self.tables[i].guest} покушал(-а) и ушёл(ушла)')
-                print(f'Стол номер {self.tables[i].number} свободен')
-                self.tables[i].guest = None
+        while not self.queue.empty() or any(table.guest for table in self.tables):
+            for table in self.tables:
+                if table.guest and not table.guest.is_alive():
+                    print(f'{table.guest.name} покушал(-а) и ушёл(ушла)')
+                    print(f'Стол номер {table.number} свободен')
+                    table.guest = None
+
+            while not self.queue.empty():
+                fr_table = self.free_table()
+                if not fr_table:
+                    break
                 new_guest = self.queue.get()
-                print(f'{new_guest} вышел(-ла) из очереди и сел(-а) за стол номер {self.tables[i].number}')
-                thread_new_guest = threading.Thread(target=new_guest, )
-                thread_new_guest.start()
-            i += 1
-
-
-
+                fr_table.guest = new_guest
+                new_guest.start()
+                print(f'{new_guest.name} вышел(-ла) из очереди и сел(-а) за стол номер {fr_table.number}')
 
 
 # Создание столов
 tables = [Table(number) for number in range(1, 6)]
 # Имена гостей
-guests_names = [
-'Maria', 'Oleg', 'Vakhtang', 'Sergey', 'Darya', 'Arman',
-'Vitoria', 'Nikita', 'Galina', 'Pavel', 'Ilya', 'Alexandra'
-]
+guests_names = ['Maria', 'Oleg', 'Vakhtang', 'Sergey', 'Darya', 'Arman', 'Vitoria', 'Nikita', 'Galina', 'Pavel', 'Ilya', 'Alexandra']
+
 # Создание гостей
 guests = [Guest(name) for name in guests_names]
 # Заполнение кафе столами
@@ -111,4 +77,4 @@ cafe = Cafe(*tables)
 # Приём гостей
 cafe.guest_arrival(*guests)
 # Обслуживание гостей
-# cafe.discuss_guests()
+cafe.discuss_guests()
