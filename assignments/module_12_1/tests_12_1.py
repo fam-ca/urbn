@@ -6,7 +6,8 @@ import runner
 #         self.assertEqual(runner.add(1, 2), 3)
 
 class RunnerTest(unittest.TestCase):
-
+    def setUp(self):
+        print('setup')
     def test_walk(self):
         runner_1 = runner.Runner('runner 1')
         for i in range(10):
