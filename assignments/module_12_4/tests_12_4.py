@@ -3,6 +3,7 @@ import unittest
 import rt_with_exceptions as runner
 import logging
 
+
 class RunnerTest(unittest.TestCase):
     is_frozen = False
     # def setUp(self):
@@ -11,20 +12,23 @@ class RunnerTest(unittest.TestCase):
     @unittest.skipIf(is_frozen, 'Тесты в этом кейсе заморожены')
     def test_walk(self):
         try:
-            runner_1 = runner.Runner('runner 1')
+            runner_1 = runner.Runner('runner 1', speed=-2)
             for i in range(10):
                 runner_1.walk()
-            self.assertEqual(runner_1.distance, 50)
             logging.info('"test_walk" выполнено успешно')
-        except:
-            logging.warning("Неверная скорость для Runner")
+            self.assertEqual(runner_1.distance, 50)
+        except ValueError as err:
+            logging.warning("Неверная скорость для Runner", exc_info=True)
 
     @unittest.skipIf(is_frozen, 'Тесты в этом кейсе заморожены')
     def test_run(self):
-        runner_2 = runner.Runner('runner 2')
-        for i in range(10):
-            runner_2.run()
-        self.assertEqual(runner_2.distance, 100)
+        try:
+            runner_2 = runner.Runner(123)
+            for i in range(10):
+                runner_2.run()
+            self.assertEqual(runner_2.distance, 100)
+        except TypeError as err:
+            logging.warning("Неверный тип данных для объекта Runner", exc_info=True)
 
     @unittest.skipIf(is_frozen, 'Тесты в этом кейсе заморожены')
     def test_challenge(self):
@@ -35,7 +39,8 @@ class RunnerTest(unittest.TestCase):
             runner_2.walk()
         self.assertNotEqual(runner_1.distance, runner_2.distance)
 
+    logging.basicConfig(level=logging.INFO, filemode='w', filename="runner_tests.log",
+                        format="%(asctime)s | %(levelname)s | %(message)s")
+
 if __name__ == "__main__":
     unittest.main()
-    logging.basicConfig(level=logging.INFO, filemode='w', filename="runner_tests.log", encoding='UTF-8',
-                        format="%(asctime)s | %(levelname)s | %(message)s")
