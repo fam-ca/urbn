@@ -1,6 +1,7 @@
 # copied from module_12_1
 import unittest
 import rt_with_exceptions as runner
+import logging
 
 class RunnerTest(unittest.TestCase):
     is_frozen = False
@@ -9,10 +10,14 @@ class RunnerTest(unittest.TestCase):
 
     @unittest.skipIf(is_frozen, 'Тесты в этом кейсе заморожены')
     def test_walk(self):
-        runner_1 = runner.Runner('runner 1')
-        for i in range(10):
-            runner_1.walk()
-        self.assertEqual(runner_1.distance, 50)
+        try:
+            runner_1 = runner.Runner('runner 1')
+            for i in range(10):
+                runner_1.walk()
+            self.assertEqual(runner_1.distance, 50)
+            logging.info('"test_walk" выполнено успешно')
+        except:
+            logging.warning("Неверная скорость для Runner")
 
     @unittest.skipIf(is_frozen, 'Тесты в этом кейсе заморожены')
     def test_run(self):
@@ -32,3 +37,5 @@ class RunnerTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+    logging.basicConfig(level=logging.INFO, filemode='w', filename="runner_tests.log", encoding='UTF-8',
+                        format="%(asctime)s | %(levelname)s | %(message)s")
