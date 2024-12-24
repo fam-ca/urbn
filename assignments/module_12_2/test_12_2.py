@@ -24,32 +24,26 @@ class TournamentTest(unittest.TestCase):
         usein = runner_and_tournament.Runner('Усейн', 10)
         nick = runner_and_tournament.Runner('Ник', 3)
         tournament = runner_and_tournament.Tournament(90, usein, nick)
-        result = tournament.start()
-
-        self.all_results.update(result)
+        self.all_results = tournament.start()
         max_key = max(self.all_results.keys())
-        self.assertTrue(self.all_results[max_key], nick.name)
+        self.assertTrue(self.all_results[max_key]==nick.name)
 
     def test_2(self):
         andrei = runner_and_tournament.Runner('Андрей', 9)
         nick = runner_and_tournament.Runner('Ник', 3)
         tournament = runner_and_tournament.Tournament(90, andrei, nick)
-        result = tournament.start()
-
-        self.all_results.update(result)
+        self.all_results = tournament.start()
         max_key = max(self.all_results.keys())
-        self.assertTrue(self.all_results[max_key], nick.name)
+        self.assertTrue(self.all_results[max_key]==nick.name)
 
     def test_3(self):
         usein = runner_and_tournament.Runner('Усейн', 10)
         andrei = runner_and_tournament.Runner('Андрей', 9)
         nick = runner_and_tournament.Runner('Ник', 3)
         tournament = runner_and_tournament.Tournament(90, usein, andrei, nick)
-        result = tournament.start()
-
-        self.all_results.update(result)
+        self.all_results = tournament.start()
         max_key = max(self.all_results.keys())
-        self.assertTrue(self.all_results[max_key], nick.name)
+        self.assertTrue(self.all_results[max_key]==nick.name)
 
 if __name__== "__main__":
     unittest.main()
