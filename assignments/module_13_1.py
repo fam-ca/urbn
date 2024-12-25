@@ -5,8 +5,8 @@ async def start_strongman(name, power):
     total_number = 5
     print(f'Силач {name} начал соревнования.')
     for i in range(total_number):
-        print(f'Силач {name} поднял {i+1} шар.')
-        await asyncio.sleep(power)
+        await asyncio.sleep(1 / power)
+        print(f'Силач {name} поднял {i + 1} шар.')
     print(f'Силач {name} закончил соревнования.')
 
 async def start_tournament():
