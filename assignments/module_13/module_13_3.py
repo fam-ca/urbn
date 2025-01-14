@@ -21,5 +21,6 @@ async def urban_message(message):
 async def all_messages(message):
     print("Введите команду /start, чтобы начать сообщение.")
     await message.answer("Введите команду /start, чтобы начать сообщение.")
+
 if __name__=="__main__":
     executor.start_polling(dp, skip_updates=True)
