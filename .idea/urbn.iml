@@ -4,8 +4,9 @@
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/assignments/module_13/.venv" />
       <excludeFolder url="file://$MODULE_DIR$/assignments/module_13/.venv" />
+      <excludeFolder url="file://$MODULE_DIR$/lectures notes/bot_table_games/.venv" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.8 (urbn)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.8 virtualenv at ~/urbn/lectures notes/bot_table_games/.venv" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="PyDocumentationSettings">
