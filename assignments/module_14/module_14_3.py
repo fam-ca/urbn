@@ -11,8 +11,7 @@ dp = Dispatcher(bot, storage=MemoryStorage())
 # create a keyboard
 kb = ReplyKeyboardMarkup(
     keyboard=[[KeyboardButton(text='Информация')],
-              [KeyboardButton(text='Рассчитать')],
-              [KeyboardButton(text='Купить')]
+              [KeyboardButton(text='Рассчитать'), KeyboardButton(text='Купить')]
               ],
     resize_keyboard=True)
 
@@ -22,11 +21,12 @@ button_2 = InlineKeyboardButton(text='Формулы расчета', callback_d
 kb2.add(button_1, button_2)
 
 kb3 = InlineKeyboardMarkup(
-    inline_keyboard=[[InlineKeyboardButton(text='Product1', callback_data="product_buying")],
-                     [InlineKeyboardButton(text='Product2', callback_data="product_buying")],
-                     [InlineKeyboardButton(text='Product3', callback_data="product_buying")],
-                     [InlineKeyboardButton(text='Product4', callback_data="product_buying")],
-                     ]
+    inline_keyboard=[[InlineKeyboardButton(text='Product1', callback_data="product_buying"),
+                     InlineKeyboardButton(text='Product2', callback_data="product_buying"),
+                     InlineKeyboardButton(text='Product3', callback_data="product_buying"),
+                     InlineKeyboardButton(text='Product4', callback_data="product_buying")]
+                     ],
+    resize_keyboard=True
 )
 
 class UserState(StatesGroup):
