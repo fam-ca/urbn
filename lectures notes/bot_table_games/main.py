@@ -16,11 +16,16 @@ dp = Dispatcher(bot, storage=MemoryStorage())
 
 @dp.message_handler(commands=['start'])
 async def start(message):
-    await message.answer(texts.start, reply_markup=start_kb)
+    await message.answer(f"Добро пожаловать {message.from_user.username}!" + texts.start, reply_markup=start_kb)
+
+# message.answer_photo
+# .answer_video
+# .answer_file
 
 @dp.message_handler(text="О нас")
 async def info(message):
-    await message.answer(texts.about, reply_markup=start_kb)
+    with open("pics/4.jpg", "rb") as img:
+        await message.answer_photo(img, texts.about, reply_markup=start_kb)
 
 @dp.message_handler(text="Стоимость")
 async def price(message):
@@ -44,6 +49,11 @@ async def buy_XL(call):
 @dp.callback_query_handler(text="other")
 async def buy_other(call):
     await call.message.answer(texts.other, reply_markup=buy_kb)
+    await call.answer()
+
+@dp.callback_query_handler(text="back_to_catalog")
+async def back(call):
+    await call.message.answer("Что вас интересует?", reply_markup=catalog_kb)
     await call.answer()
 
 if  __name__=="__main__":
