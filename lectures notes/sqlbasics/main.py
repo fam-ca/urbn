@@ -12,7 +12,7 @@ age INTEGER
 )
 ''')
 
-cursor.execute("CREATE INDEX IF NOT EXISTS idx_email ON Users (email)")
+# cursor.execute("CREATE INDEX IF NOT EXISTS idx_email ON Users (email)")
 # # создание элементов
 # for i in range(30):
 #     cursor.execute("INSERT INTO Users (username, email, age) VALUES (?, ?, ?)", (f"newuser{i}", f"{i}example@gmail.com", str(randint(20, 60))))
@@ -28,10 +28,29 @@ cursor.execute("CREATE INDEX IF NOT EXISTS idx_email ON Users (email)")
 
 # cursor.execute("SELECT username, age FROM Users WHERE age > ?", (29, ))
 
-cursor.execute("SELECT username, age FROM Users GROUP BY age")
-users = cursor.fetchall()
-for user in users:
-    print(user)
+# cursor.execute("SELECT COUNT(*) FROM Users WHERE age > ?", (50, ))
+
+# сумма возрастов всех пользователей
+cursor.execute("SELECT SUM(age) FROM Users")
+total1 = cursor.fetchone()[0]
+
+# число пользователей
+cursor.execute("SELECT COUNT(*) FROM Users")
+total2 = cursor.fetchone()[0]
+print(total1, f"Average age: {total1 / total2}")
+
+cursor.execute("SELECT AVG(age) FROM Users")
+avg_age = cursor.fetchone()[0]
+print(avg_age)
+
+cursor.execute("SELECT MIN(age) FROM Users")
+min_age = cursor.fetchone()[0]
+print(min_age)
+
+cursor.execute("SELECT MAX(age) FROM Users")
+max_age = cursor.fetchone()[0]
+print(max_age)
+
 connection.commit()
 connection.close()
 
