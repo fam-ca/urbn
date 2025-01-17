@@ -9,6 +9,8 @@ import asyncio
 from config import *
 from keyboards import *
 import texts
+from admin import *
+from db import *
 
 logging.basicConfig(level=logging.INFO)
 bot = Bot(token = API)
